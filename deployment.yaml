@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ssv
+  namespace: dev  # Specify the namespace
 spec:
   replicas: 1
   selector:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: 41424344/flask-image:latest
+        image: 637423378523.dkr.ecr.ap-south-1.amazonaws.com/dev/flask:latest
         command: ["/bin/sh"]
         args: ["-c", "python app.py runserver 0.0.0.0:5000"]
         imagePullPolicy: IfNotPresent
@@ -24,14 +25,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ssv-service
+  namespace: dev  # Specify the namespace
   labels:
     app: ssv
 spec:
-  type: LoadBalancer
+  type: LoadBalancer  # Set to LoadBalancer for external access
   selector:
     app: ssv
   ports:
     - protocol: TCP
       port: 80         # Port exposed by the service
       targetPort: 5000 # Port on which the container is listening
-

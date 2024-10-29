@@ -27,9 +27,9 @@ jobs:
     - name: Build and tag Docker image
       run: |
         docker build -t django-sample-app:latest .  # Build Docker image from the project
-        docker tag django-sample-app:latest 637423378523.dkr.ecr.ap-south-1.amazonaws.com/django/sample:latest  # Tag the image for ECR
+        docker tag django-sample-app:latest 637423378523.dkr.ecr.ap-south-1.amazonaws.com/dev/flask:latest  # Tag the image for ECR
 
     - name: Push Docker image to Amazon ECR
       run: |
-        docker push 637423378523.dkr.ecr.ap-south-1.amazonaws.com/django/sample:latest  # Push the image to ECR
+        docker push 637423378523.dkr.ecr.ap-south-1.amazonaws.com/dev/flask  # Push the image to ECR
 

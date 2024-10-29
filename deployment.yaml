@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ssv
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ssv
+  template:
+    metadata:
+      labels:
+        app: ssv
+    spec:
+      containers:
+      - name: app
+        image: 41424344/flask-image:latest
+        command: ["/bin/sh"]
+        args: ["-c", "python app.py runserver 0.0.0.0:5000"]
+        imagePullPolicy: IfNotPresent
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ssv-service
+  labels:
+    app: ssv
+spec:
+  type: LoadBalancer
+  selector:
+    app: ssv
+  ports:
+    - protocol: TCP
+      port: 80         # Port exposed by the service
+      targetPort: 5000 # Port on which the container is listening
+

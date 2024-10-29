@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+    container_name: flask-app
+    volumes:
+      - ./app.py:/app/app.py
+    command:
+      "python app.py runserver 0.0.0.0:5000"
+    ports:
+      - "5004:5000"
